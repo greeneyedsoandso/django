@@ -1,0 +1,2 @@
+# django
+experimental django project
