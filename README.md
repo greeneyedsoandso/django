@@ -1,2 +1,2 @@
-# django
-experimental django project
+# django blog
+Experimental django project
