@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
     ]
     exclude = ('posts',)
 
-
+#@admin.register(Post) is an alternative to the admin.site.register below
 class PostAdmin(admin.ModelAdmin):
     inlines = [
         CategoryInline,
