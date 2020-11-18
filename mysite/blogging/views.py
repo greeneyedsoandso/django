@@ -16,12 +16,4 @@ class PostDetailView(DetailView):
     template_name = 'blogging/detail.html'
     queryset = Post.objects.exclude(published_date__exact=None)
 
-    def post(self, post_id):
-        try:
-            post = self.queryset.get(pk=post_id)
-        except Post.DoesNotExist:
-            raise Http404
-        context = {'object': post}
-        return render(post_id, 'blogging/detail.html', context)
-
 
