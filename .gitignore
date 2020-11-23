@@ -132,3 +132,6 @@ dmypy.json
 *.pyc
 *.db
 *.sqlite3
+
+# mac crap
+.DS_Store
