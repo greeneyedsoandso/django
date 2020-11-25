@@ -10,6 +10,7 @@ from django import forms
 from django.utils import timezone
 from blogging.forms import MyCommentForm
 from blogging.models import Comment
+from django.views.generic.edit import CreateView
 
 
 class PostListView(ListView):
@@ -25,23 +26,23 @@ class PostDetailView(DetailView):
     queryset = Post.objects.exclude(published_date__exact=None)
 
 
-class CommentDetailView(DetailView):
+class CommentCreateView(CreateView):
     model = Comment
-    template_name = "blogging/comment.html"
+    template_name = "blogging/add.html"
+    fields = []
 
     def add_model(self, request):
-        comment = self.get_object()
 
         if request.method == "POST":
-            self.form = MyCommentForm(request.POST)
-            if self.form.is_valid():
-                model_instance = self.form.save(commit=False)
+            form = MyCommentForm(request.POST)
+            if form.is_valid():
+                model_instance = form.save(commit=False)
                 model_instance.timestamp = timezone.now()
                 model_instance.save()
                 return redirect("/")
 
         else:
 
-            self.form = MyCommentForm()
+            form = MyCommentForm()
 
-            return render(request, "comment.html", {"form": form})
+            return render(request, "blogging/add.html", {"object": form})
